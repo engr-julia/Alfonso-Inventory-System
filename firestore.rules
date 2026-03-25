@@ -1,0 +1,98 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: inventory
+    // Document ID: auto-generated
+    // Fields:
+    //   - name: string (required, 1-100 chars)
+    //   - category: string (required, enum)
+    //   - quantity: string (required, 1-50 chars)
+    //   - unit: string (optional, 0-20 chars)
+    //   - lowStockThreshold: number (required, >= 0)
+    //   - lastUpdated: number (required, timestamp)
+    //   - uid: string (optional, owner ID)
+    //   - isCounted: boolean (optional, whether staff has counted the item)
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() &&
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' ||
+          ((request.auth.token.email == "engr.julia.rt@gmail.com" || request.auth.token.email == "softengjulia@gmail.com") && request.auth.token.email_verified == true));
+    }
+
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+
+    function hasOnlyAllowedFields(fields) {
+      return request.resource.data.keys().hasOnly(fields);
+    }
+
+    function uidUnchanged() {
+      return !('uid' in request.resource.data) ||
+             request.resource.data.uid == request.auth.uid;
+    }
+
+    function uidNotModified() {
+      return !('uid' in request.resource.data) ||
+             request.resource.data.uid == resource.data.uid;
+    }
+
+    function isValidInventoryItem(data) {
+      return hasRequiredFields(['name', 'category', 'quantity', 'lowStockThreshold', 'lastUpdated']) &&
+             hasOnlyAllowedFields(['name', 'category', 'quantity', 'unit', 'lowStockThreshold', 'lastUpdated', 'uid', 'isCounted', 'emoji']) &&
+             data.name is string && data.name.size() > 0 && data.name.size() <= 100 &&
+             data.category in ['Sauces', 'Syrups', 'Others', 'Lazada Supplies', 'S&R Supplies'] &&
+             data.quantity is string && data.quantity.size() > 0 && data.quantity.size() <= 50 &&
+             (!('unit' in data) || (data.unit is string && data.unit.size() <= 20)) &&
+             data.lowStockThreshold is number && data.lowStockThreshold >= 0 &&
+             data.lastUpdated is number &&
+             (!('isCounted' in data) || (data.isCounted is bool)) &&
+             (!('emoji' in data) || (data.emoji is string && data.emoji.size() <= 10));
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /inventory/{itemId} {
+      // Anyone authenticated can read the inventory (café staff)
+      allow read: if isAuthenticated();
+      
+      // Anyone authenticated can create an item if it's valid and UID is correct
+      allow create: if isAuthenticated() && isValidInventoryItem(request.resource.data) && uidUnchanged();
+      
+      // Anyone authenticated can update an item if it's valid and UID is not tampered with
+      allow update: if isAuthenticated() && isValidInventoryItem(request.resource.data) && (uidNotModified() || isAdmin());
+      
+      // Only admins can delete items
+      allow delete: if isAdmin();
+    }
+
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create, update: if isAdmin();
+    }
+
+    match /test/connection {
+      allow read: if true;
+    }
+  }
+}

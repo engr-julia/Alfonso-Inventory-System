@@ -1,0 +1,60 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  
+  /* Alfonso's Premium Palette: Refined for better contrast and eye comfort */
+  --color-brand-light: #FDFBF7; /* Softer, more neutral cream */
+  --color-brand-tan: #8B5E3C;
+  --color-brand-light-brown: #C4A484; /* New light brown for panels */
+  --color-brand-brown: #2D1B19;
+  --color-brand-dark: #0A0A0A;
+
+  /* Semantic Overrides for Cohesion */
+  --color-coffee-950: #1A1211;
+  --color-coffee-900: var(--color-brand-dark);
+  --color-coffee-800: #5D3A37;
+  --color-coffee-700: #704743;
+  --color-coffee-600: var(--color-brand-brown);
+  --color-coffee-500: var(--color-brand-tan);
+  --color-coffee-400: #D19A6B;
+  --color-coffee-300: #E2B58E;
+  --color-coffee-200: #F3D1B1;
+  --color-coffee-100: #FCE9D4;
+  --color-coffee-50: #FDFBF7;
+  --color-cream: var(--color-brand-light);
+
+  /* Semantic Status Colors */
+  --color-success: #5F7444;    /* Sage Green */
+  --color-warning: #C08552;    /* Brand Tan */
+  --color-error: #8B3E3E;      /* Muted Crimson */
+}
+
+@layer base {
+  body {
+    @apply font-sans antialiased bg-fixed bg-cover bg-center;
+    background-image: linear-gradient(rgba(26, 18, 17, 0.96), rgba(26, 18, 17, 0.96)), url('/abg.jpg');
+  }
+  
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight font-bold;
+  }
+}
+
+@utility glass {
+  @apply bg-brand-light-brown/90 backdrop-blur-2xl border border-white/10 shadow-lg;
+}
+
+@utility premium-card {
+  @apply glass rounded-2xl p-6 transition-all duration-300;
+}
+
+@utility data-grid {
+  @apply glass rounded-2xl overflow-hidden border border-brand-dark/5 dark:border-white/5;
+}
+
+@utility premium-button {
+  @apply px-6 py-3 rounded-xl font-bold uppercase tracking-widest text-[10px] transition-all duration-300 active:scale-95 shadow-sm;
+}

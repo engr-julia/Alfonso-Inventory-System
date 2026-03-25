@@ -1,0 +1,55 @@
+{
+  "entities": {
+    "InventoryItem": {
+      "title": "Inventory Item",
+      "description": "A single item in the café inventory.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the item."
+        },
+        "category": {
+          "type": "string",
+          "enum": ["Sauces", "Syrups", "Others", "Lazada Supplies", "S&R Supplies"],
+          "description": "The category the item belongs to."
+        },
+        "quantity": {
+          "type": "string",
+          "description": "The current quantity (can be a mixed string like '1 & 3/4')."
+        },
+        "unit": {
+          "type": "string",
+          "description": "The unit of measurement."
+        },
+        "lowStockThreshold": {
+          "type": "number",
+          "description": "The threshold at which the item is considered low stock."
+        },
+        "lastUpdated": {
+          "type": "number",
+          "description": "Timestamp of the last update."
+        },
+        "uid": {
+          "type": "string",
+          "description": "The ID of the user who last updated or created the item."
+        },
+        "isCounted": {
+          "type": "boolean",
+          "description": "Whether the item has been counted by staff."
+        },
+        "emoji": {
+          "type": "string",
+          "description": "The emoji icon for the item."
+        }
+      },
+      "required": ["name", "category", "quantity", "lowStockThreshold", "lastUpdated"]
+    }
+  },
+  "firestore": {
+    "/inventory/{itemId}": {
+      "schema": "InventoryItem",
+      "description": "Collection of all inventory items."
+    }
+  }
+}
