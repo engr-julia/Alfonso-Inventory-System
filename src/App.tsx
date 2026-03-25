@@ -330,7 +330,7 @@ function InventoryApp() {
       <div className="min-h-screen bg-brand-light-brown flex items-center justify-center">
         <div className="animate-pulse flex flex-col items-center">
           <div className="relative mb-6">
-            <img src="/alfonso.jpg" alt="Alfonso Logo" className="w-16 h-16 rounded-[24px] border-2 border-brand-tan shadow-2xl" />
+            <img src="/alfonso.jpg" alt="Alfonso Logo" referrerPolicy="no-referrer" className="w-16 h-16 rounded-[24px] border-2 border-brand-tan shadow-2xl" />
             <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-600 rounded-full border-2 border-brand-light-brown" />
           </div>
           <div className="h-4 w-32 bg-brand-brown/10 rounded-full" />
@@ -344,7 +344,7 @@ function InventoryApp() {
       <div className="min-h-screen bg-brand-light-brown flex items-center justify-center p-4">
         <div className="bg-white p-10 rounded-[40px] shadow-2xl max-w-md w-full text-center border border-brand-brown/5">
           <div className="relative w-24 h-24 mx-auto mb-8 group">
-            <img src="/alfonso.jpg" alt="Alfonso Logo" className="w-24 h-24 rounded-[32px] border-2 border-brand-tan shadow-2xl transition-transform duration-700 group-hover:rotate-12" />
+            <img src="/alfonso.jpg" alt="Alfonso Logo" referrerPolicy="no-referrer" className="w-24 h-24 rounded-[32px] border-2 border-brand-tan shadow-2xl transition-transform duration-700 group-hover:rotate-12" />
             <div className="absolute -top-3 -right-3 bg-brand-tan text-white text-[10px] font-black px-2 py-1 rounded-full uppercase tracking-tighter shadow-md">Pro</div>
           </div>
           <h2 className="text-3xl font-black text-brand-brown uppercase tracking-tighter mb-3">Alfonso</h2>
@@ -369,7 +369,7 @@ function InventoryApp() {
       <header className="lg:hidden bg-brand-light-brown border-b border-brand-brown/10 px-4 py-4 flex items-center justify-between sticky top-0 z-40 shadow-sm">
         <div className="flex items-center gap-3">
           <div className="relative">
-            <img src="/alfonso.jpg" alt="Alfonso Logo" className="w-9 h-9 rounded-full border-2 border-brand-tan shadow-md" />
+            <img src="/alfonso.jpg" alt="Alfonso Logo" referrerPolicy="no-referrer" className="w-9 h-9 rounded-full border-2 border-brand-tan shadow-md" />
             <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-600 rounded-full border-2 border-brand-light-brown" />
           </div>
           <h1 className="font-black text-lg text-brand-brown uppercase tracking-tighter">Alfonso</h1>
@@ -391,7 +391,7 @@ function InventoryApp() {
           <div className="flex items-center justify-between mb-12">
             <div className="flex items-center gap-4">
               <div className="relative group">
-                <img src="/alfonso.jpg" alt="Alfonso Logo" className="w-14 h-14 rounded-2xl border-2 border-brand-tan shadow-2xl transition-transform duration-500 group-hover:rotate-6" />
+                <img src="/alfonso.jpg" alt="Alfonso Logo" referrerPolicy="no-referrer" className="w-14 h-14 rounded-2xl border-2 border-brand-tan shadow-2xl transition-transform duration-500 group-hover:rotate-6" />
                 <div className="absolute -top-2 -right-2 bg-brand-tan text-white text-[8px] font-black px-1.5 py-0.5 rounded-full uppercase tracking-tighter shadow-md">Pro</div>
               </div>
               <div>

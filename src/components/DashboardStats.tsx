@@ -13,7 +13,7 @@ export const DashboardStats: React.FC<Props> = ({ summary, onSyncEmojis }) => {
     {
       label: 'Total Catalog',
       value: summary.totalItems,
-      icon: () => <img src="/alfonso.jpg" alt="Logo" className="w-full h-full rounded-md md:rounded-lg object-cover" />,
+      icon: () => <img src="/alfonso.jpg" alt="Logo" referrerPolicy="no-referrer" className="w-full h-full rounded-md md:rounded-lg object-cover" />,
       textColor: 'text-brand-dark dark:text-brand-light',
       bgColor: 'bg-brand-dark/5 dark:bg-white/5'
     },
